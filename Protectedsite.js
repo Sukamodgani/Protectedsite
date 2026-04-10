@@ -36,7 +36,7 @@ function updateUserActivity(email) {
 // 🔐 MAIN AUTH + SYSTEM
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
-    window.location.href = "http://127.0.0.1:5500/5buttonlogin.html";
+    window.location.href = "https://protectedsite123.vercel.app/";
     return;
   }
 
@@ -94,7 +94,7 @@ onAuthStateChanged(auth, async (user) => {
       }
 
       await signOut(auth);
-      window.location.href = "http://127.0.0.1:5500/5buttonlogin.html";
+      window.location.href = "https://protectedsite123.vercel.app/";
     }
   });
 
@@ -112,7 +112,7 @@ onAuthStateChanged(auth, async (user) => {
       }
 
       await signOut(auth);
-      window.location.href = "http://127.0.0.1:5500/5buttonlogin.html";
+      window.location.href = "https://protectedsite123.vercel.app/";
     }
   });
 });
@@ -124,5 +124,5 @@ window.logout = async function () {
   }
 
   await signOut(auth);
-  window.location.href = "http://127.0.0.1:5500/5buttonlogin.html";
+  window.location.href = "https://protectedsite123.vercel.app/";
 };
