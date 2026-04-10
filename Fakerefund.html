@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bayot Si WADEH!</title>
+<link rel="shortcut icon" href="https://avatars.akamai.steamstatic.com/e1dd59fdefd14c7e2b9f0cad71500ec25ee880d5_full.jpg" type="image/x-icon">
+<link rel="stylesheet" href="fakerefund.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="page-title">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg">
+Steam Refund Activation
+</div>
+
+<div class="profile-box">
+<img src="https://avatars.akamai.steamstatic.com/e1dd59fdefd14c7e2b9f0cad71500ec25ee880d5_full.jpg">
+<div>
+<div style="font-weight:bold;color:white;">GalacticStorm </div>
+<div style="font-size:15px;color:#8f98a0;">Steam ID: 76561198967678361</div>
+</div>
+</div>
+
+<div class="refund-box">
+
+<h2>Activation Process</h2>
+
+<div style="color:#66c0f4;margin-bottom:20px;">
+Add Funds: <b>$<span id="fundsAmount">0.00</span></b>
+</div>
+
+<div id="pendingRefundLine" style="color:#66c0f4;margin-bottom:20px; display:none;">
+Pending Refund: <b>$<span id="balanceAmount">0.00</span></b>
+</div>
+
+<div class="input-group" id="cardholderGroup" style="display:none;">
+<label>Cardholder's Name</label>
+<input type="text" id="cardholderName" placeholder="Enter cardholder name">
+<div class="steam-popup" id="cardPopup">Please fill out this field.</div>
+</div>
+
+<div class="input-group">
+<label>Funds Amount</label>
+<div class="amount-wrapper">
+<span>$</span>
+<input type="number" id="refundAmount" placeholder="Enter amount">
+</div>
+</div>
+
+<div class="input-group">
+<label>Refund Method</label>
+<select id="refundMethod" onchange="toggleCardholder()">
+<option>PayPal</option>
+<option>Visa</option>
+<option>MasterCard</option>
+<option>Discover</option>
+<option>American Express</option>
+</select>
+</div>
+
+<div class="progress">
+<div class="progress-bar" id="progressBar">0%</div>
+</div>
+
+<button onclick="submitRefund()">Submit Refund Request</button>
+
+<div class="spinner" id="spinner"></div>
+<div class="error-box" id="errorBox"></div>
+
+</div>
+<!-- ✅ Valve text + logo below refund box -->
+<div class="valve-text">
+© Valve Corporation.ᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠ
+<img src="https://cdn.akamai.steamstatic.com/store/about/icon-steamos.svg">
+</div>
+
+</div>
+
+<script src="fakerefund.js"></script>
+<!-- STEAM STYLE FOOTER -->
+<div class="steam-footer">
+    <div class="steam-footer-content">
+
+        <span class="steam-footer-logo">
+            <img src="https://community.fastly.steamstatic.com/public/images/skin_1/footerLogo_valve.png" alt="Valve Logo">
+        </span>
+
+        <span class="steam-footer-text">
+            © Valve Corporation. All rights reserved. All trademarks are property of their respective owners in the US and other countries.<br>
+            Some geospatial data on this website is provided by 
+            <a href="http://www.geonames.org" target="_blank">geonames.org</a>.<br>
+
+            <span class="steam-footer-links">
+                <a href="https://store.steampowered.com/privacy_agreement/" target="_blank">Privacy Policy</a>
+                |
+                <a href="https://store.steampowered.com/legal/" target="_blank">Legal</a>
+                |
+                <a href="https://help.steampowered.com/faqs/view/10BB-D27A-6378-4436" target="_blank">Accessibility</a>
+                |
+                <a href="https://store.steampowered.com/subscriber_agreement/" target="_blank">Steam Subscriber Agreement</a>
+                |
+                <a href="https://store.steampowered.com/account/cookiepreferences/" target="_blank">Cookies</a>
+            </span>
+        </span>
+
+    </div>
+</div>
+
+</body>
+</html>
