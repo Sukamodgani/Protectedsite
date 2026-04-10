@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+
+  <style>
+    body {
+    margin: 0;
+    height: 100vh;
+    font-family: Arial;
+
+    background: url("https://wallpapercave.com/wp/wp2757874.gif") no-repeat center center;
+    background-size: cover;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+    .container {
+      background: rgb(65, 62, 62);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(37, 19, 19, 0.2);
+      text-align: center;
+      width: 300px;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>Log in</h2>
+
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+  </div>
+
+  <script type="module" src="https://protectedsite123.vercel.app/Loginpage.js"></script>
+</body>
+</html>
