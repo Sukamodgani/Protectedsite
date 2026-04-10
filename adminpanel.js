@@ -22,7 +22,7 @@ const tableBody = document.querySelector("#logTable tbody");
 // 🔐 AUTH CHECK
 onAuthStateChanged(auth, (user) => {
   if (!user) {
-    window.location.href = "http://127.0.0.1:5500/5buttonlogin.html";
+    window.location.href = "https://protectedsite123.vercel.app/";
     return;
   }
 
