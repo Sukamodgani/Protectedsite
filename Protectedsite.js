@@ -6,6 +6,7 @@ import {
   setDoc, deleteDoc 
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+// 🔥 FIREBASE CONFIG
 const firebaseConfig = {
   apiKey: "AIzaSyC_ai3QC8MpUyVRrKrhvHr74ItTIsIl-pg",
   authDomain: "logindemo-34202.firebaseapp.com",
@@ -18,86 +19,110 @@ const db = getFirestore(app);
 
 let userRef = null;
 
-// 🔐 MAIN AUTH + LISTENERS
+// 🔁 UPDATE USER ACTIVITY (NEW 🔥)
+function updateUserActivity(email) {
+  const page = window.location.pathname;
+
+  userRef = doc(db, "onlineUsers", email);
+
+  setDoc(userRef, {
+    email: email,
+    page: page,               // ✅ TRACK PAGE
+    online: true,
+    lastActive: Date.now()
+  }, { merge: true });
+}
+
+// 🔐 MAIN AUTH + SYSTEM
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
-    console.log("No user");
     window.location.href = "http://127.0.0.1:5500/5buttonlogin.html";
     return;
   }
 
   const email = (user.email || "").toLowerCase().trim();
+  updateUserActivity(email);
+
+   // 🔁 keep updating activity + page
+    setInterval(() => {
+  updateUserActivity(email);
+}, 5000);
 
   console.log("Logged in:", email);
 
-  // 🟢 =========================
-  // ONLINE USER SYSTEM (NEW)
   // =========================
-  userRef = doc(db, "onlineUsers", email);
+  // 🟢 ONLINE USER SYSTEM + PAGE TRACKING
+  // =========================
+  updateUserActivity(email);
 
-  await setDoc(userRef, {
-    email: email,
-    time: Date.now()
-  });
+  // 🔁 Update every 5 seconds (LIVE)
+  setInterval(() => {
+    updateUserActivity(email);
+  }, 5000);
 
-  // 🔴 Remove when user leaves
+  // 🔴 Remove when tab closed
   window.addEventListener("beforeunload", async () => {
     if (userRef) {
       await deleteDoc(userRef);
     }
   });
 
-  // 🔥 =========================
-  // FORCE LOGOUT LISTENER
   // =========================
-const systemRef = doc(db, "system", "config");
+  // 🚨 FORCE LOGOUT SYSTEM
+  // =========================
+  const systemRef = doc(db, "system", "config");
 
-let lastLogout = Number(localStorage.getItem("lastLogout")) || 0;
+  let lastLogout = Number(localStorage.getItem("lastLogout")) || 0;
 
-onSnapshot(systemRef, (snap) => {
-  if (!snap.exists()) return;
+  onSnapshot(systemRef, async (snap) => {
+    if (!snap.exists()) return;
 
-  const data = snap.data();
+    const data = snap.data();
 
-  console.log("ForceLogout value:", data.forceLogout);
-  console.log("LastLogout stored:", lastLogout);
+    if (data.forceLogout && data.forceLogout > lastLogout) {
 
-  if (data.forceLogout && data.forceLogout > lastLogout) {
+      // ❌ skip admin
+      if (email === "admin@gmail.com") return;
 
-    // ❌ skip admin
-    if (email === "admin@gmail.com") return;
+      localStorage.setItem("lastLogout", data.forceLogout);
 
-    // ✅ update stored value
-    localStorage.setItem("lastLogout", data.forceLogout);
+      alert("Force logout triggered!");
 
-    alert("Force logout triggered!");
-    signOut(auth);
-    window.location.href = "http://127.0.0.1:5500/5buttonlogin.html";
-  }
-});
+      // ✅ REMOVE from online users
+      if (userRef) {
+        await deleteDoc(userRef);
+      }
 
-  // 🔥 =========================
-  // BLOCK USER LISTENER
+      await signOut(auth);
+      window.location.href = "http://127.0.0.1:5500/5buttonlogin.html";
+    }
+  });
+
+  // =========================
+  // 🚫 BLOCK USER SYSTEM
   // =========================
   const blockedRef = doc(db, "blockedUsers", email);
 
-  onSnapshot(blockedRef, (snap) => {
+  onSnapshot(blockedRef, async (snap) => {
     if (snap.exists()) {
       alert("You have been kicked by admin!");
-      signOut(auth);
+
+      if (userRef) {
+        await deleteDoc(userRef);
+      }
+
+      await signOut(auth);
       window.location.href = "http://127.0.0.1:5500/5buttonlogin.html";
     }
   });
 });
 
 // 🚪 LOGOUT BUTTON
-window.logout = function () {
-  // 🔴 Remove from online users on manual logout
+window.logout = async function () {
   if (userRef) {
-    deleteDoc(userRef);
+    await deleteDoc(userRef);
   }
 
-  signOut(auth).then(() => {
-    window.location.href = "http://127.0.0.1:5500/5buttonlogin.html";
-  });
+  await signOut(auth);
+  window.location.href = "http://127.0.0.1:5500/5buttonlogin.html";
 };
