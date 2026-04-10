@@ -34,7 +34,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
         time: serverTimestamp()
       });
 
-      window.location.href = "http://127.0.0.1:5500/5button.html";
+      window.location.href = "https://protectedsite123.vercel.app/Homepagetools.html";
 
     } catch (err) {
       alert(err.message);
