@@ -6,7 +6,6 @@ import {
   setDoc, deleteDoc 
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// 🔥 FIREBASE CONFIG
 const firebaseConfig = {
   apiKey: "AIzaSyC_ai3QC8MpUyVRrKrhvHr74ItTIsIl-pg",
   authDomain: "logindemo-34202.firebaseapp.com",
@@ -19,7 +18,7 @@ const db = getFirestore(app);
 
 let userRef = null;
 
-// 🔁 UPDATE USER ACTIVITY (NEW 🔥)
+// 🔁 UPDATE USER ACTIVITY
 function updateUserActivity(email) {
   const page = window.location.pathname;
 
@@ -27,35 +26,21 @@ function updateUserActivity(email) {
 
   setDoc(userRef, {
     email: email,
-    page: page,               // ✅ TRACK PAGE
+    page: page,
     online: true,
     lastActive: Date.now()
   }, { merge: true });
 }
 
-// 🔐 MAIN AUTH + SYSTEM
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    window.location.href = "https://protectedsite123.vercel.app/";
-    return;
-  }
-
+// ✅ START APP AFTER AUTH READY
+function startApp(user) {
   const email = (user.email || "").toLowerCase().trim();
-  updateUserActivity(email);
-
-   // 🔁 keep updating activity + page
-    setInterval(() => {
-  updateUserActivity(email);
-}, 5000);
 
   console.log("Logged in:", email);
 
-  // =========================
-  // 🟢 ONLINE USER SYSTEM + PAGE TRACKING
-  // =========================
   updateUserActivity(email);
 
-  // 🔁 Update every 5 seconds (LIVE)
+  // 🔁 ONE interval only
   setInterval(() => {
     updateUserActivity(email);
   }, 5000);
@@ -67,11 +52,8 @@ onAuthStateChanged(auth, async (user) => {
     }
   });
 
-  // =========================
-  // 🚨 FORCE LOGOUT SYSTEM
-  // =========================
+  // 🚨 FORCE LOGOUT
   const systemRef = doc(db, "system", "config");
-
   let lastLogout = Number(localStorage.getItem("lastLogout")) || 0;
 
   onSnapshot(systemRef, async (snap) => {
@@ -81,48 +63,56 @@ onAuthStateChanged(auth, async (user) => {
 
     if (data.forceLogout && data.forceLogout > lastLogout) {
 
-      // ❌ skip admin
       if (email === "admin@gmail.com") return;
 
       localStorage.setItem("lastLogout", data.forceLogout);
 
       alert("Force logout triggered!");
 
-      // ✅ REMOVE from online users
-      if (userRef) {
-        await deleteDoc(userRef);
-      }
+      if (userRef) await deleteDoc(userRef);
 
       await signOut(auth);
-      window.location.href = "https://protectedsite123.vercel.app/";
+      window.location.href = "/";
     }
   });
 
-  // =========================
-  // 🚫 BLOCK USER SYSTEM
-  // =========================
+  // 🚫 BLOCK USER
   const blockedRef = doc(db, "blockedUsers", email);
 
   onSnapshot(blockedRef, async (snap) => {
     if (snap.exists()) {
       alert("You have been kicked by admin!");
 
-      if (userRef) {
-        await deleteDoc(userRef);
-      }
+      if (userRef) await deleteDoc(userRef);
 
       await signOut(auth);
-      window.location.href = "https://protectedsite123.vercel.app/";
+      window.location.href = "/";
     }
   });
+}
+
+// 🔐 AUTH FIX (IMPORTANT)
+let authChecked = false;
+
+onAuthStateChanged(auth, (user) => {
+  if (authChecked) return;
+
+  setTimeout(() => {
+    if (!user) {
+      window.location.href = "/";
+    } else {
+      startApp(user);
+    }
+    authChecked = true;
+  }, 500);
 });
 
-// 🚪 LOGOUT BUTTON
+// 🚪 LOGOUT
 window.logout = async function () {
   if (userRef) {
     await deleteDoc(userRef);
   }
 
   await signOut(auth);
-  window.location.href = "https://protectedsite123.vercel.app/";
+  window.location.href = "/";
 };
