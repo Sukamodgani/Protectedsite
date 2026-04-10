@@ -16,7 +16,7 @@
 
   onAuthStateChanged(auth, (user) => {
     if (!user) {
-      window.location.href = "http://127.0.0.1:5500/5buttonlogin.html";
+      window.location.href = "https://examplesite2026.vercel.app/Loginpage.html";
       return;
     }
 
@@ -27,7 +27,7 @@
       if (docSnap.exists()) {
         alert("You have been kicked by admin.");
         signOut(auth);
-        window.location.href = "http://127.0.0.1:5500/5buttonlogin.html";
+        window.location.href = "https://examplesite2026.vercel.app/Loginpage.html";
       }
     });
   });
