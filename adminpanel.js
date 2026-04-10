@@ -32,7 +32,7 @@ onAuthStateChanged(auth, (user) => {
     loadLogs();
     loadOnlineUsers();
   } else {
-    window.location.href = "https://protectedsite123.vercel.app/Admindashboard.html";
+    window.location.href = "Homepagetools.html";
   }
 });
 
