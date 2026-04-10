@@ -78,7 +78,7 @@ window.filterTable = function () {
 // 🚪 LOGOUT
 window.logout = function () {
   signOut(auth).then(() => {
-    window.location.href = "http://127.0.0.1:5500/5buttonlogin.html";
+    window.location.href = "https://protectedsite123.vercel.app/";
   });
 };
 
