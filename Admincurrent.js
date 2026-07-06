@@ -81,18 +81,9 @@ async function loadLogs() {
       <tr>
 
         <td>${data.email || "Unknown"}</td>
-
         <td>${data.ip || "Unknown"}</td>
-
         <td>${data.city || "Unknown"}</td>
-
         <td>${data.country || "Unknown"}</td>
-
-        <td>${data.device || "Unknown"}</td>
-
-        <td>${data.page || "Unknown"}</td>
-
-        <td>${lastActive}</td>
 
         <td>${loginTime}</td>
 
@@ -259,13 +250,12 @@ function loadOnlineUsers() {
       const data = docSnap.data();
 
       const email = data.email || "Unknown";
-      const page = data.page || "Unknown Page";
+      const page = data.page || "Unknown";
+      const device = data.device || "Unknown Device";
 
-      let active = "Unknown";
-
-      if (data.lastActive) {
-        active = new Date(data.lastActive).toLocaleTimeString();
-      }
+      const active = data.lastActive
+        ? new Date(data.lastActive).toLocaleString()
+        : "Unknown";
 
       if (email.toLowerCase() === "admin@gmail.com") {
 
