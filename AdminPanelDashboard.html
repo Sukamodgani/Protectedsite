@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f0f2f5;
+    padding:25px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.top-buttons{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+button{
+    border:none;
+    padding:10px 16px;
+    color:white;
+    cursor:pointer;
+    border-radius:6px;
+    font-size:14px;
+}
+
+.logout{
+    background:#d63031;
+}
+
+.delete{
+    background:#e17055;
+}
+
+.force{
+    background:#2d3436;
+}
+
+button:hover{
+    opacity:.85;
+}
+
+.search{
+    width:100%;
+    padding:12px;
+    margin-bottom:20px;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-bottom:30px;
+    font-size:14px;
+}
+
+th{
+    background:#0984e3;
+    color:white;
+    padding:10px;
+}
+
+td{
+    padding:10px;
+    border-bottom:1px solid #ddd;
+    text-align:center;
+}
+
+tr:hover{
+    background:#f5f5f5;
+}
+
+.online-box{
+    background:#fafafa;
+    padding:15px;
+    border-radius:10px;
+    border:1px solid #ddd;
+}
+
+.online-box h2{
+    margin-bottom:10px;
+}
+
+.user-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:8px;
+    border-bottom:1px solid #ddd;
+}
+
+.user-row:last-child{
+    border:none;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🛡️ Admin Dashboard</h1>
+
+<div class="top-buttons">
+
+<button class="logout" onclick="logout()">
+Logout
+</button>
+
+<button class="delete" onclick="deleteLogs()">
+Delete All Logs
+</button>
+
+<button class="force" onclick="forceLogoutAll()">
+Force Logout All Users
+</button>
+
+</div>
+
+<input
+id="search"
+class="search"
+type="text"
+placeholder="Search email..."
+onkeyup="filterTable()"
+>
+
+<table id="logTable">
+
+<thead>
+
+<tr>
+<th>Email</th>
+<th>IP Address</th>
+<th>City</th>
+<th>Country</th>
+<th>Device</th>
+<th>Current Page</th>
+<th>Last Active</th>
+<th>Login Time</th>
+<th>Action</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+</tbody>
+
+</table>
+
+<div class="online-box">
+
+<h2>🟢 Online Users</h2>
+
+<div id="onlineList">
+
+Loading...
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module" src="admincurrent.js"></script>
+
+</body>
+</html>
